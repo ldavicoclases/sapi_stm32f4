@@ -113,6 +113,8 @@ __attribute__ ((section(".after_vectors")))
 void SysTick_Handler(void) {
    tickCounter++;
 
+   HAL_IncTick(); // Necesario para las funciones de USB
+
    /* Execute Tick Hook function */
    (* tickHookFunction )( 0 );
 }
