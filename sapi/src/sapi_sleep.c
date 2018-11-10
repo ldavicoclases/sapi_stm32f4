@@ -1,4 +1,4 @@
-/* Copyright 2015-2016, Eric Pernia.
+/* Copyright 2016, Eric Pernia.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -31,56 +31,36 @@
  *
  */
 
-/* Date: 2015-09-23 */
-
-#ifndef _SAPI_DELAY_H_
-#define _SAPI_DELAY_H_
+/* Date: 2016-08-15 */
 
 /*==================[inclusions]=============================================*/
 
-#include "sapi_datatypes.h"
+#include "sapi_sleep.h"
 
-/*==================[cplusplus]==============================================*/
+/*==================[macros and definitions]=================================*/
 
-#ifdef __cplusplus
-extern "C" {
-#endif
+/*==================[internal data declaration]==============================*/
 
-/*==================[macros]=================================================*/
+/*==================[internal functions declaration]=========================*/
 
-/* Define the number of cycles for 1ms */
-#define INACCURATE_TO_MS       12000
-#define INACCURATE_TO_US_x10   120
+/*==================[internal data definition]===============================*/
 
-/*==================[typedef]================================================*/
+/*==================[external data definition]===============================*/
 
-typedef struct{
-   tick_t startTime;
-   tick_t duration;
-   bool_t running;
-} delay_t;
+/*==================[internal functions definition]==========================*/
 
-/*==================[external data declaration]==============================*/
+/*==================[external functions definition]==========================*/
 
-/*==================[external functions declaration]=========================*/
+/*
+ * @Brief: Sleep mode, sleep until next interrupt occur.
+ * @param  nothing
+ * @return nothing
+ */
+void sleepUntilNextInterrupt( void ){
 
-/* ---- Inaccurate Delay ---- */
-void delayInaccurate( tick_t delay );
-void delayInaccurateUs(tick_t delay_us);
+   /* Instert an assembly instruction wfi (wait for interrupt) */
+   __asm volatile( "wfi" );
 
-/* ---- Blocking Delay ---- */
-void delay ( tick_t delay );
-
-/* ---- Non Blocking Delay ---- */
-void delayConfig( delay_t * delay, tick_t duration );
-bool_t delayRead( delay_t * delay );
-void delayWrite( delay_t * delay, tick_t duration );
-
-/*==================[cplusplus]==============================================*/
-
-#ifdef __cplusplus
 }
-#endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_DELAY_H_ */

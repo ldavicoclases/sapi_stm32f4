@@ -1,4 +1,4 @@
-/* Copyright 2015-2016, Eric Pernia.
+/* Copyright 2016, Eric Pernia.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -31,14 +31,15 @@
  *
  */
 
-/* Date: 2015-09-23 */
+/* Date: 2016-08-15 */
 
-#ifndef _SAPI_DELAY_H_
-#define _SAPI_DELAY_H_
+#ifndef SAPI_SCT_H_
+#define SAPI_SCT_H_
 
 /*==================[inclusions]=============================================*/
 
 #include "sapi_datatypes.h"
+#include "sapi_peripheral_map.h"
 
 /*==================[cplusplus]==============================================*/
 
@@ -46,35 +47,20 @@
 extern "C" {
 #endif
 
-/*==================[macros]=================================================*/
-
-/* Define the number of cycles for 1ms */
-#define INACCURATE_TO_MS       12000
-#define INACCURATE_TO_US_x10   120
+/*==================[macros and definitions]=================================*/
 
 /*==================[typedef]================================================*/
-
-typedef struct{
-   tick_t startTime;
-   tick_t duration;
-   bool_t running;
-} delay_t;
 
 /*==================[external data declaration]==============================*/
 
 /*==================[external functions declaration]=========================*/
 
-/* ---- Inaccurate Delay ---- */
-void delayInaccurate( tick_t delay );
-void delayInaccurateUs(tick_t delay_us);
-
-/* ---- Blocking Delay ---- */
-void delay ( tick_t delay );
-
-/* ---- Non Blocking Delay ---- */
-void delayConfig( delay_t * delay, tick_t duration );
-bool_t delayRead( delay_t * delay );
-void delayWrite( delay_t * delay, tick_t duration );
+/*
+ * @Brief: Sleep mode, sleep until next interrupt occur.
+ * @param  nothing
+ * @return nothing
+ */
+void sleepUntilNextInterrupt( void );
 
 /*==================[cplusplus]==============================================*/
 
@@ -83,4 +69,4 @@ void delayWrite( delay_t * delay, tick_t duration );
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_DELAY_H_ */
+#endif /* SAPI_SCT_H_ */
