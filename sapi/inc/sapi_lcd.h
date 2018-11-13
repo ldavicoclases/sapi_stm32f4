@@ -1,6 +1,4 @@
-/* Copyright 2015-2017, Eric Pernia.
- * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
+/* Copyright 2018, Nahuel Espinosa.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -33,45 +31,14 @@
  *
  */
 
-/* Date: 2018-10-01 */
+/* Date: 2018-01-02 */
 
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_LCD_H_
+#define _SAPI_LCD_H_
 
 /*==================[inclusions]=============================================*/
 
-#include "sapi_datatypes.h"
-#include "sapi_peripheral_map.h"
-
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"
-#include "sapi_tick.h"
-#include "sapi_gpio.h"
-#include "sapi_uart.h"
-//#include "sapi_adc.h"
-//#include "sapi_dac.h"
-//#include "sapi_i2c.h"
-//#include "sapi_rtc.h"
-#include "sapi_sleep.h"
-
-// High Level drivers
-//#include "sapi_convert.h"           //
-//#include "sapi_print.h"             // Use UART module
-//#include "sapi_debugPrint.h"        // Use Print module
-//#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-//#include "sapi_pwm.h"               // Use SCT and GPIO modules
-
-// External Peripheral Drivers
-#include "sapi_lcd.h"
-//#include "sapi_7_segment_display.h" // Use GPIO and Delay modules
-//#include "sapi_keypad.h"            // Use GPIO and Delay modules
-//#include "sapi_servo.h"             // Use Timer and GPIO modules
-//#include "sapi_hmc5883l.h"          // Use I2C module
+#include "sapi.h"        // <= Biblioteca sAPI
 
 /*==================[cplusplus]==============================================*/
 
@@ -81,11 +48,74 @@ extern "C" {
 
 /*==================[macros]=================================================*/
 
+// Configure LCD pins
+#define LCD_HD44780_RS   LCD_RS   // RS = 0 to select command register, RS = 1 to select data register
+#define LCD_HD44780_EN   LCD_EN   // Enable
+#define LCD_HD44780_RW   LCD_RW   // R/W = 0 for write, R/W = 1 for read
+
+#define LCD_HD44780_D7   LCD7
+#define LCD_HD44780_D6   LCD6
+#define LCD_HD44780_D5   LCD5
+#define LCD_HD44780_D4   LCD4
+
+// LCD delay Times
+#define LCD_EN_PULSE_WAIT_MS   1     // 1 ms
+#define LCD_LOW_WAIT_MS        1     // 1 ms
+#define LCD_HIGH_WAIT_MS       1     // 1 ms
+
+#define LCD_CMD_WAIT_MS        5     // Wait time for every command 5 ms, except:
+#define LCD_CLR_DISP_WAIT_MS   3     // - Clear Display 1.52 ms
+#define LCD_RET_HOME_WAIT_MS   2     // - Return Home  1.52 ms
+									 // - Read Busy flag and address 0 us
+
+#define LCD_STARTUP_WAIT_MS    45    // 45 ms
+
+// LCD delay HAL
+#define lcdDelay_ms(duration)       delay(duration)
+#define lcdDelay_us(duration)       delayInaccurateUs(duration) //delayUs(duration)
+#define lcdCommandDelay()           lcdDelay_ms(LCD_CMD_WAIT_MS)
+#define lcdConfigPinAsOutput(pin)   gpioConfig( (pin), GPIO_OUTPUT );
+#define lcdPinWrite( pin, value )   gpioWrite( (pin), (value) )
+
 /*==================[typedef]================================================*/
+
+// Enumeration defining the HD44780 commands
+enum enLcdCommands {
+	E_CLEAR_DISPLAY        = 0x01,
+	E_RETURN_HOME          = 0x02,
+	E_ENTRY_MODE_SET       = 0x04,
+	E_DISPLAY_ON_OFF_CTRL  = 0x08,
+	E_CURSOR_DISPLAY_SHIFT = 0x10,
+	E_FUNCTION_SET         = 0x20,
+	E_SET_CGRAM_ADDR       = 0x40,
+	E_SET_DDRAM_ADDR       = 0x80
+};
+
+// This enumeration defines the available cursor modes
+enum enLCDCursorModes {
+	E_LCD_CURSOR_OFF      = 0x00,
+	E_LCD_CURSOR_ON       = 0x02,
+	E_LCD_CURSOR_ON_BLINK = 0x03
+};
 
 /*==================[external data declaration]==============================*/
 
 /*==================[external functions declaration]=========================*/
+
+void lcdCommand( uint8_t cmd );
+
+void lcdData( uint8_t data );
+
+void lcdInit( uint16_t lineWidth, uint16_t amountOfLines,
+              uint16_t charWidth, uint16_t charHeight );
+
+void lcdGoToXY( uint8_t x, uint8_t y );
+
+void lcdClear( void );
+
+void lcdSendStringRaw( char* str );
+
+void lcdCreateChar( uint8_t charnum, const char* chardata );
 
 /*==================[cplusplus]==============================================*/
 
@@ -94,4 +124,4 @@ extern "C" {
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* #ifndef _SAPI_LCD_H_ */
