@@ -1,6 +1,4 @@
-/* Copyright 2015-2017, Eric Pernia.
- * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
+/* Copyright 2016, Eric Pernia.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -33,53 +31,17 @@
  *
  */
 
-/* Date: 2018-10-01 */
-
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_7_SEGMENT_DISPLAY_H_
+#define _SAPI_7_SEGMENT_DISPLAY_H_
 
 /*==================[inclusions]=============================================*/
 
 #include "sapi_datatypes.h"
 #include "sapi_peripheral_map.h"
 
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"
-#include "sapi_tick.h"
-#include "sapi_gpio.h"
-#include "sapi_uart.h"
-//#include "sapi_adc.h"
-//#include "sapi_dac.h"
-//#include "sapi_i2c.h"
-//#include "sapi_rtc.h"
-#include "sapi_sleep.h"
-
-// High Level drivers
-//#include "sapi_convert.h"           //
-//#include "sapi_print.h"             // Use UART module
-//#include "sapi_debugPrint.h"        // Use Print module
-//#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-//#include "sapi_pwm.h"               // Use SCT and GPIO modules
-
-// External Peripheral Drivers
-#include "sapi_lcd.h"
-#include "sapi_7_segment_display.h" // Use GPIO and Delay modules
-//#include "sapi_keypad.h"            // Use GPIO and Delay modules
-//#include "sapi_servo.h"             // Use Timer and GPIO modules
-//#include "sapi_hmc5883l.h"          // Use I2C module
-
-/*==================[cplusplus]==============================================*/
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
 /*==================[macros]=================================================*/
+
+#define DISPLAY_7_SEGMENT_OFF 25
 
 /*==================[typedef]================================================*/
 
@@ -87,11 +49,37 @@ extern "C" {
 
 /*==================[external functions declaration]=========================*/
 
-/*==================[cplusplus]==============================================*/
+/* Test 7-segment display connected pins */
+/*
+----------------+------------+-----------+------------
+ Segment ON     | BIN Value  | HEX Value | Output pin
+----------------+------------+-----------+------------
+ Segment 'a' ON | 0b00000001 |   0x20    | ..... (to be complete)
+ Segment 'b' ON | 0b00000010 |   0x80    | .....
+ Segment 'c' ON | 0b00000100 |   0x40    | .....
+ Segment 'd' ON | 0b00001000 |   0x02    | .....
+ Segment 'e' ON | 0b00010000 |   0x04    | .....
+ Segment 'f' ON | 0b00100000 |   0x10    | .....
+ Segment 'g' ON | 0b01000000 |   0x08    | .....
+ Segment 'h' ON | 0b10000000 |   0x80    | .....
+----------------+------------+-----------+------------
+             a
+           -----
+       f /     / b
+        /  g  /
+        -----
+    e /     / c
+     /  d  /
+     -----    O h = dp (decimal point).
+*/
+void display7SegmentTestPins( gpioMap_t pin );
 
-#ifdef __cplusplus
-}
-#endif
+/* Configure 7-segment display GPIOs as Outputs */
+void display7SegmentPinConfig();
+
+/* Write a symbol on 7-segment display */
+void display7SegmentWrite( uint8_t symbolIndex );
+
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* #ifndef _SAPI_7_SEGMENT_DISPLAY_H_ */
