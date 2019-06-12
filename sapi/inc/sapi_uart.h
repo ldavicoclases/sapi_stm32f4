@@ -88,6 +88,24 @@ void uartWriteByte( uartMap_t uart, uint8_t byte );
 
 void uartWriteString( uartMap_t uart, char* str );
 
+//-------------------------------------------------------------
+
+// UART RX Interrupt Enable/Disable
+void uartRxInterruptSet( uartMap_t uart, bool_t enable );
+// UART TX Interrupt Enable/Disable
+void uartTxInterruptSet( uartMap_t uart, bool_t enable );
+
+// UART RX Interrupt set callback function that is excecuted when event ocurrs
+void uartRxInterruptCallbackSet(
+   uartMap_t uart,                  // UART
+   callBackFuncPtr_t rxIsrCallback  // pointer to function
+);
+// UART TX Interrupt set callback function that is excecuted when event ocurrs
+void uartTxInterruptCallbackSet(
+   uartMap_t uart,                  // UART
+   callBackFuncPtr_t txIsrCallback  // pointer to function
+);
+
 /*==================[ISR external functions declaration]======================*/
 
 /* 0x28 0x000000A0 - Handler for ISR UART0 (IRQ 24) */

@@ -1,6 +1,4 @@
-/* Copyright 2015-2017, Eric Pernia.
- * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
+/* Copyright 2018, Nahuel Espinosa.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -33,49 +31,15 @@
  *
  */
 
-/* Date: 2018-10-01 */
+/* Date: 2018-01-02 */
 
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_PWM_H_
+#define _SAPI_PWM_H_
 
 /*==================[inclusions]=============================================*/
 
 #include "sapi_datatypes.h"
 #include "sapi_peripheral_map.h"
-
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"                  // Use clock peripheral
-#include "sapi_tick.h"                   // Use Systick peripheral
-#include "sapi_gpio.h"                   // Use GPIO peripherals
-#include "sapi_uart.h"                   // Use UART peripherals
-#include "sapi_encoder.h"                // Use TIM5 peripheral
-#include "sapi_adc.h"                    // Use ADC0 peripheral
-#include "sapi_dac.h"                    // Use DAC peripheral
-#include "sapi_rtc.h"                    // Use RTC peripheral
-#include "sapi_spi.h"                    // Use SPI peripheral
-#include "sapi_sleep.h"                  // Use ASM instructions
-#include "sapi_pwm.h"                    // Use sapi_gpio module
-
-// High Level drivers
-#include "sapi_stdio.h"             // Use sapi_uart module
-#include "sapi_convert.h"           //
-#include "sapi_print.h"             // Use UART module
-#include "sapi_debugPrint.h"        // Use Print module
-#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-
-
-// External Peripheral Drivers
-#include "sapi_7_segment_display.h"      // Use sapi_gpio and sapi_delay modules
-#include "sapi_keypad.h"                 // Use sapi_gpio and sapi_delay modules
-#include "sapi_lcd.h"                    // Use sapi_gpio and sapi_delay modules
-#include "sapi_dht11.h"                  // Use sapi_gpio peripheral
-#include "sapi_esp8266.h"                // Use sapi_uart module
-#include "sapi_lis3dsh.h"                // Use sapi_gpio and sapi_spi modules
 
 /*==================[cplusplus]==============================================*/
 
@@ -83,13 +47,42 @@
 extern "C" {
 #endif
 
-/*==================[macros]=================================================*/
+/*==================[macros and definitions]=================================*/
 
 /*==================[typedef]================================================*/
+
+typedef enum{
+   PWM_ENABLE, PWM_DISABLE,
+   PWM_ENABLE_OUTPUT, PWM_DISABLE_OUTPUT
+} pwmConfig_t;
 
 /*==================[external data declaration]==============================*/
 
 /*==================[external functions declaration]=========================*/
+
+/*
+ * @Brief: Initializes the pwm peripheral.
+ * @param  uint8_t pwmNumber
+ * @param  uint8_t config
+ * @return bool_t true (1) if config it is ok
+ */
+bool_t pwmConfig( pwmMap_t pwmNumber, pwmConfig_t config);
+
+/*
+ * @brief:   read the value of the pwm in the pin
+ * @param:   pwmNumber:   ID of the pwm, from 0 to 10
+ * @return:   value of the pwm in the pin (0 ~ 255).
+ *   If an error ocurred, return = EMPTY_POSITION = 255
+ */
+uint16_t pwmRead( pwmMap_t pwmNumber );
+
+/*
+ * @brief:   change the value of the pwm at the selected pin
+ * @param:   pwmNumber:   ID of the pwm, from 0 to 10
+ * @param:   value:   8bit value, from 0 to 255
+ * @return:   True if the value was successfully changed, False if not.
+ */
+bool_t pwmWrite( pwmMap_t pwmNumber, uint16_t percent );
 
 /*==================[cplusplus]==============================================*/
 
@@ -98,4 +91,4 @@ extern "C" {
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* _SAPI_PWM_H_ */

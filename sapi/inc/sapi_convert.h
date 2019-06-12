@@ -1,6 +1,4 @@
-/* Copyright 2015-2017, Eric Pernia.
- * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
+/* Copyright 2017, Eric Pernia.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -30,72 +28,52 @@
  * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
  * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
  * POSSIBILITY OF SUCH DAMAGE.
- *
  */
 
-/* Date: 2018-10-01 */
+/* Date: 2017-04-17 */
 
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_CONVERT_H_
+#define _SAPI_CONVERT_H_
+
+/*
+
+API
+---
+
+// C++ version 0.4 char* style "itoa":
+bool_t int64ToString( int64_t value, char* result, uint8_t base );
+bool_t uint64ToString( uint64_t value, char* result, uint8_t base );
+
+char* uintToAsciiHex( uint64_t value, uint8_t bitSize );
+*/
 
 /*==================[inclusions]=============================================*/
 
 #include "sapi_datatypes.h"
-#include "sapi_peripheral_map.h"
-
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"                  // Use clock peripheral
-#include "sapi_tick.h"                   // Use Systick peripheral
-#include "sapi_gpio.h"                   // Use GPIO peripherals
-#include "sapi_uart.h"                   // Use UART peripherals
-#include "sapi_encoder.h"                // Use TIM5 peripheral
-#include "sapi_adc.h"                    // Use ADC0 peripheral
-#include "sapi_dac.h"                    // Use DAC peripheral
-#include "sapi_rtc.h"                    // Use RTC peripheral
-#include "sapi_spi.h"                    // Use SPI peripheral
-#include "sapi_sleep.h"                  // Use ASM instructions
-#include "sapi_pwm.h"                    // Use sapi_gpio module
-
-// High Level drivers
-#include "sapi_stdio.h"             // Use sapi_uart module
-#include "sapi_convert.h"           //
-#include "sapi_print.h"             // Use UART module
-#include "sapi_debugPrint.h"        // Use Print module
-#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-
-
-// External Peripheral Drivers
-#include "sapi_7_segment_display.h"      // Use sapi_gpio and sapi_delay modules
-#include "sapi_keypad.h"                 // Use sapi_gpio and sapi_delay modules
-#include "sapi_lcd.h"                    // Use sapi_gpio and sapi_delay modules
-#include "sapi_dht11.h"                  // Use sapi_gpio peripheral
-#include "sapi_esp8266.h"                // Use sapi_uart module
-#include "sapi_lis3dsh.h"                // Use sapi_gpio and sapi_spi modules
-
-/*==================[cplusplus]==============================================*/
-
-#ifdef __cplusplus
-extern "C" {
-#endif
 
 /*==================[macros]=================================================*/
 
 /*==================[typedef]================================================*/
 
+typedef enum{
+   BIN_FORMAT = 2,
+   DEC_FORMAT = 10,
+   HEX_FORMAT = 16
+} numberFormat_t;
+
 /*==================[external data declaration]==============================*/
 
 /*==================[external functions declaration]=========================*/
 
-/*==================[cplusplus]==============================================*/
+// C++ version 0.4 char* style "itoa":
+bool_t int64ToString( int64_t value, char* result, uint8_t base );
+bool_t uint64ToString( uint64_t value, char* result, uint8_t base );
 
-#ifdef __cplusplus
-}
-#endif
+char* uintToAsciiHex( uint64_t value, uint8_t bitSize );
+
+char* intToString( int64_t value );
+
+/*==================[examples]===============================================*/
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* #ifndef _SAPI_CONVERT_H_ */

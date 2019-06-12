@@ -1,6 +1,4 @@
-/* Copyright 2015-2017, Eric Pernia.
- * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
+/* Copyright 2018, Nahuel Espinosa.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -33,49 +31,15 @@
  *
  */
 
-/* Date: 2018-10-01 */
+/* Date: 2018-01-02 */
 
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_RTC_H_
+#define _SAPI_RTC_H_
 
 /*==================[inclusions]=============================================*/
 
 #include "sapi_datatypes.h"
 #include "sapi_peripheral_map.h"
-
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"                  // Use clock peripheral
-#include "sapi_tick.h"                   // Use Systick peripheral
-#include "sapi_gpio.h"                   // Use GPIO peripherals
-#include "sapi_uart.h"                   // Use UART peripherals
-#include "sapi_encoder.h"                // Use TIM5 peripheral
-#include "sapi_adc.h"                    // Use ADC0 peripheral
-#include "sapi_dac.h"                    // Use DAC peripheral
-#include "sapi_rtc.h"                    // Use RTC peripheral
-#include "sapi_spi.h"                    // Use SPI peripheral
-#include "sapi_sleep.h"                  // Use ASM instructions
-#include "sapi_pwm.h"                    // Use sapi_gpio module
-
-// High Level drivers
-#include "sapi_stdio.h"             // Use sapi_uart module
-#include "sapi_convert.h"           //
-#include "sapi_print.h"             // Use UART module
-#include "sapi_debugPrint.h"        // Use Print module
-#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-
-
-// External Peripheral Drivers
-#include "sapi_7_segment_display.h"      // Use sapi_gpio and sapi_delay modules
-#include "sapi_keypad.h"                 // Use sapi_gpio and sapi_delay modules
-#include "sapi_lcd.h"                    // Use sapi_gpio and sapi_delay modules
-#include "sapi_dht11.h"                  // Use sapi_gpio peripheral
-#include "sapi_esp8266.h"                // Use sapi_uart module
-#include "sapi_lis3dsh.h"                // Use sapi_gpio and sapi_spi modules
 
 /*==================[cplusplus]==============================================*/
 
@@ -83,13 +47,43 @@
 extern "C" {
 #endif
 
-/*==================[macros]=================================================*/
+/*==================[macros and definitions]=================================*/
 
 /*==================[typedef]================================================*/
+
+typedef struct {
+   uint16_t year;	 /* 1 to 4095 */
+   uint8_t  month; /* 1 to 12   */
+   uint8_t  mday;	 /* 1 to 31   */
+   uint8_t  wday;	 /* 1 to 7    */
+   uint8_t  hour;	 /* 0 to 23   */
+   uint8_t  min;	 /* 0 to 59   */
+   uint8_t  sec;	 /* 0 to 59   */
+} rtc_t;
 
 /*==================[external data declaration]==============================*/
 
 /*==================[external functions declaration]=========================*/
+
+/*
+ * @Brief: Configure RTC peripheral.
+ * @return bool_t true (1) if config it is ok
+ */
+bool_t rtcConfig( void );
+
+/*
+ * @Brief: Get time from RTC peripheral.
+ * @param  rtc_t rtc: RTC structure
+ * @return bool_t true (1) if config it is ok
+ */
+bool_t rtcRead( rtc_t * rtc );
+
+/*
+ * @Brief: Set time on RTC peripheral.
+ * @param  RTC_t rtc: RTC structure
+ * @return bool_t true (1) if config it is ok
+ */
+bool_t rtcWrite( rtc_t * rtc );
 
 /*==================[cplusplus]==============================================*/
 
@@ -98,4 +92,4 @@ extern "C" {
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* _SAPI_RTC_H_ */

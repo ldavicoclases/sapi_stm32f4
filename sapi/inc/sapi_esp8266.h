@@ -1,6 +1,5 @@
-/* Copyright 2015-2017, Eric Pernia.
- * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
+/* Copyright 2016, Marcelo Vieytes.
+ * Copyright 2017, Pablo Gomez, Agustin Bassi.
  * All rights reserved.
  *
  * This file is part sAPI library for microcontrollers.
@@ -33,49 +32,14 @@
  *
  */
 
-/* Date: 2018-10-01 */
+/* Date: 2017-14-11 */
 
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_ESP8266_
+#define _SAPI_ESP8266_
 
 /*==================[inclusions]=============================================*/
 
-#include "sapi_datatypes.h"
-#include "sapi_peripheral_map.h"
-
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"                  // Use clock peripheral
-#include "sapi_tick.h"                   // Use Systick peripheral
-#include "sapi_gpio.h"                   // Use GPIO peripherals
-#include "sapi_uart.h"                   // Use UART peripherals
-#include "sapi_encoder.h"                // Use TIM5 peripheral
-#include "sapi_adc.h"                    // Use ADC0 peripheral
-#include "sapi_dac.h"                    // Use DAC peripheral
-#include "sapi_rtc.h"                    // Use RTC peripheral
-#include "sapi_spi.h"                    // Use SPI peripheral
-#include "sapi_sleep.h"                  // Use ASM instructions
-#include "sapi_pwm.h"                    // Use sapi_gpio module
-
-// High Level drivers
-#include "sapi_stdio.h"             // Use sapi_uart module
-#include "sapi_convert.h"           //
-#include "sapi_print.h"             // Use UART module
-#include "sapi_debugPrint.h"        // Use Print module
-#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-
-
-// External Peripheral Drivers
-#include "sapi_7_segment_display.h"      // Use sapi_gpio and sapi_delay modules
-#include "sapi_keypad.h"                 // Use sapi_gpio and sapi_delay modules
-#include "sapi_lcd.h"                    // Use sapi_gpio and sapi_delay modules
-#include "sapi_dht11.h"                  // Use sapi_gpio peripheral
-#include "sapi_esp8266.h"                // Use sapi_uart module
-#include "sapi_lis3dsh.h"                // Use sapi_gpio and sapi_spi modules
+#include "sapi.h"
 
 /*==================[cplusplus]==============================================*/
 
@@ -91,6 +55,17 @@ extern "C" {
 
 /*==================[external functions declaration]=========================*/
 
+bool_t esp8266ConfigHttpServer (char * wifiName, char * wifiPass, uartMap_t debugUart, uint32_t debugBaudRate);
+bool_t esp8266ReadHttpServer   ();
+bool_t esp8266WriteHttpServer  (const char * webHttpHeader, char * webHttpBody, const char * webHttpEnd);
+
+char *  esp8266GetIpAddress    ();
+char *  esp8266GetWifiName     ();
+char *  esp8266GetWifiPass     ();
+uint8_t esp8266GetConnectionId ();
+
+void espUartCallback(void);
+
 /*==================[cplusplus]==============================================*/
 
 #ifdef __cplusplus
@@ -98,4 +73,4 @@ extern "C" {
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* #ifndef _SAPI_ESP8266_ */

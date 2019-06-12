@@ -1,9 +1,8 @@
-/* Copyright 2015-2017, Eric Pernia.
+/* Copyright 2016, Eric Pernia.
  * Copyright 2018, Nahuel Espinosa.
- * Copyright 2018, Leonardo Davico.
  * All rights reserved.
  *
- * This file is part sAPI library for microcontrollers.
+ * This file is part of CIAA Firmware.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions are met:
@@ -33,49 +32,15 @@
  *
  */
 
-/* Date: 2018-10-01 */
+/* Date: 2018-01-02 */
 
-#ifndef _SAPI_H_
-#define _SAPI_H_
+#ifndef _SAPI_SPI_H_
+#define _SAPI_SPI_H_
 
 /*==================[inclusions]=============================================*/
 
 #include "sapi_datatypes.h"
 #include "sapi_peripheral_map.h"
-
-//#include "sapi_isr_vector.h"
-
-// Peripheral Drivers
-#include "sapi_board.h"                  // Use clock peripheral
-#include "sapi_tick.h"                   // Use Systick peripheral
-#include "sapi_gpio.h"                   // Use GPIO peripherals
-#include "sapi_uart.h"                   // Use UART peripherals
-#include "sapi_encoder.h"                // Use TIM5 peripheral
-#include "sapi_adc.h"                    // Use ADC0 peripheral
-#include "sapi_dac.h"                    // Use DAC peripheral
-#include "sapi_rtc.h"                    // Use RTC peripheral
-#include "sapi_spi.h"                    // Use SPI peripheral
-#include "sapi_sleep.h"                  // Use ASM instructions
-#include "sapi_pwm.h"                    // Use sapi_gpio module
-
-// High Level drivers
-#include "sapi_stdio.h"             // Use sapi_uart module
-#include "sapi_convert.h"           //
-#include "sapi_print.h"             // Use UART module
-#include "sapi_debugPrint.h"        // Use Print module
-#include "sapi_consolePrint.h"      // Use Print module
-
-#include "sapi_delay.h"             // Use Tick module
-#include "sapi_circularBuffer.h"
-
-
-// External Peripheral Drivers
-#include "sapi_7_segment_display.h"      // Use sapi_gpio and sapi_delay modules
-#include "sapi_keypad.h"                 // Use sapi_gpio and sapi_delay modules
-#include "sapi_lcd.h"                    // Use sapi_gpio and sapi_delay modules
-#include "sapi_dht11.h"                  // Use sapi_gpio peripheral
-#include "sapi_esp8266.h"                // Use sapi_uart module
-#include "sapi_lis3dsh.h"                // Use sapi_gpio and sapi_spi modules
 
 /*==================[cplusplus]==============================================*/
 
@@ -89,7 +54,17 @@ extern "C" {
 
 /*==================[external data declaration]==============================*/
 
-/*==================[external functions declaration]=========================*/
+/*==================[ISR external functions definition]======================*/
+
+/*==================[external functions definition]==========================*/
+
+bool_t spiConfig( spiMap_t spi );
+
+bool_t spiRead( spiMap_t spi, uint8_t* buffer, uint32_t bufferSize );
+
+bool_t spiWrite( spiMap_t spi, uint8_t* buffer, uint32_t bufferSize);
+
+bool_t spiWriteRead( spiMap_t spi, uint8_t *txBuffer, uint8_t *rxBuffer, uint32_t bufferSize );
 
 /*==================[cplusplus]==============================================*/
 
@@ -98,4 +73,4 @@ extern "C" {
 #endif
 
 /*==================[end of file]============================================*/
-#endif /* #ifndef _SAPI_H_ */
+#endif /* #ifndef _SAPI_SPI_H_ */
