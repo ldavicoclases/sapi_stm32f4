@@ -119,7 +119,7 @@ static bool_t lis3dshReadReg(uint8_t* buffer, uint8_t addr, uint16_t bufferSize)
 
 /*==================[external functions definition]==========================*/
 
-bool_t lis3dshInit( void ) {
+bool_t lis3dshConfig( void ) {
    uint8_t ctrl = 0x00;
    uint8_t data = 0x00;
    bool_t retVal = FALSE;

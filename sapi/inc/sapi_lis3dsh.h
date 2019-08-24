@@ -230,7 +230,7 @@ typedef enum {
 
 /*==================[external functions declaration]=========================*/
 
-bool_t lis3dshInit( void );
+bool_t lis3dshConfig( void );
 bool_t lis3dshRead( lis3dshAxis_t axis, int16_t* out );
 
 /*==================[cplusplus]==============================================*/
