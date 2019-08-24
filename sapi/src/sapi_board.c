@@ -88,6 +88,8 @@ void boardConfig(void) {
    gpioConfig( TEC2, GPIO_INPUT );
    gpioConfig( TEC3, GPIO_INPUT );
    gpioConfig( TEC4, GPIO_INPUT );
+   gpioConfig( TEC5, GPIO_INPUT );
+   gpioConfig( TEC_ENC, GPIO_INPUT );
 
    // Configuración de pines de salida para Leds
    gpioConfig( LEDR, GPIO_OUTPUT );
@@ -100,6 +102,16 @@ void boardConfig(void) {
 
    gpioConfig( DOUT1, GPIO_OUTPUT );
    gpioConfig( DOUT2, GPIO_OUTPUT );
+
+   // Configuración de pines de salida para LCD
+   gpioConfig( LCD_BL, GPIO_OUTPUT );
+   gpioConfig( LCD_EN, GPIO_OUTPUT );
+
+   // Configuración de pin para habilitar disp 7 segs
+   gpioConfig( SEG_EN, GPIO_OUTPUT );
+
+   // Configuración de pin para parlante
+   gpioConfig( DOUT_SPK, GPIO_OUTPUT );
 }
 
 /* System Clock Configuration */
