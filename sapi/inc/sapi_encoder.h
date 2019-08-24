@@ -69,8 +69,7 @@ bool_t encoderConfig( encoderConfig_t config, uint16_t limit );
 
 /*
  * @brief:   read the current value of the encoder
- * @return:   value of the encoder (0 ~ 255).
- *   If an error ocurred, return = EMPTY_POSITION = 255
+ * @return:  value of the encoder
  */
 uint16_t encoderRead( void );
 

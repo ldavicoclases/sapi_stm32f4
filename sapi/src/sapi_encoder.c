@@ -84,7 +84,7 @@ static void encoderInitTimer( uint16_t limit ){
    sConfig.IC1Selection = TIM_ICSELECTION_DIRECTTI;
    sConfig.IC1Prescaler = TIM_ICPSC_DIV1;
    sConfig.IC1Filter = 0;
-   sConfig.IC2Polarity = TIM_ICPOLARITY_RISING;
+   sConfig.IC2Polarity = TIM_ICPOLARITY_FALLING;
    sConfig.IC2Selection = TIM_ICSELECTION_DIRECTTI;
    sConfig.IC2Prescaler = TIM_ICPSC_DIV1;
    sConfig.IC2Filter = 0;
@@ -99,8 +99,7 @@ static void encoderInitTimer( uint16_t limit ){
 
 /*
  * @brief:   read the current value of the encoder
- * @return:   value of the encoder (0 ~ 255).
- *   If an error ocurred, return = EMPTY_POSITION = 255
+ * @return:  value of the encoder
  */
 uint16_t encoderRead(){
    return __HAL_TIM_GET_COUNTER(&htim5);
