@@ -106,14 +106,14 @@ void lcdCommand( uint8_t cmd );
 
 void lcdData( uint8_t data );
 
-void lcdInit( uint16_t lineWidth, uint16_t amountOfLines,
+void lcdConfig( uint16_t lineWidth, uint16_t amountOfLines,
               uint16_t charWidth, uint16_t charHeight );
 
 void lcdGoToXY( uint8_t x, uint8_t y );
 
 void lcdClear( void );
 
-void lcdSendStringRaw( char* str );
+void lcdWriteString( char* str );
 
 void lcdCreateChar( uint8_t charnum, const char* chardata );
 

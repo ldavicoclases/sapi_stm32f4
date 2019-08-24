@@ -97,7 +97,7 @@ void lcdData( uint8_t data ){
    lcdEnablePulse();
 }
 
-void lcdInit( uint16_t lineWidth, uint16_t amountOfLines,
+void lcdConfig( uint16_t lineWidth, uint16_t amountOfLines,
               uint16_t charWidth, uint16_t charHeight ){
 
    // Configure LCD Pins as Outputs
@@ -156,7 +156,7 @@ void lcdClear( void )
    lcdDelay_ms(LCD_CLR_DISP_WAIT_MS);    // Wait
 }
 
-void lcdSendStringRaw( char* str )
+void lcdWriteString( char* str )
 {
    uint8_t i = 0;
    while( str[i] != 0 ){
