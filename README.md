@@ -3,7 +3,7 @@
 La placa base educativa que hemos desarrollado para montar el kit STM32F4DISCOVERY es ideal para trabajar en forma práctica en entornos de enseñanza de sistemas embebidos. La misma integra los periféricos más utilizados para dicho tipo de prácticas.
 
 <p align="center">
-    <img width="300" alt="Foto de la baseboard" src="https://raw.githubusercontent.com/nahueespinosa/sapi_stm32f4/master/docs/baseboard_picture.png">
+    <img width="300" alt="Foto de la baseboard" src="../master/docs/baseboard_picture.png?raw=true">
 </p>
 
 El kit cuenta con un microcontrolador STM32F407VGT6 de la empresa STMicroelectronics con núcleo de 32-bit ARM®Cortex®-M4 con FPU, 1-Mbyte de memoria Flash y 192-Kbyte de RAM.
@@ -12,7 +12,7 @@ Hemos desarrollado también el firmware necesario para acelerar el proceso de en
 El hardware y el firmware desarrollados en este proyecto permiten reducir los tiempos, los errores de interconexión y los materiales auxiliares necesarios para trabajar con distintos periféricos, sobre todo con alumnos recién iniciados en este campo.
 
 <p align="center">
-    <img width="700" alt="Diagrama de bloques simplificado" src="https://raw.githubusercontent.com/nahueespinosa/sapi_stm32f4/master/docs/bloques.png">
+    <img width="700" alt="Diagrama de bloques simplificado" src="../master/docs/bloques.png?raw=true">
 </p>
 
 A continuación se detalla la lista de periféricos incluidos en la placa para este proyecto:
@@ -26,5 +26,5 @@ A continuación se detalla la lista de periféricos incluidos en la placa para e
 - Un encoder incremental de dos fases en cuadratura de acción manual.
 
 <p align="center">
-    <img alt="PCB" src="https://raw.githubusercontent.com/nahueespinosa/sapi_stm32f4/master/docs/baseboard.png">
+    <img alt="PCB" src="../master/docs/baseboard.png?raw=true">
 </p>
